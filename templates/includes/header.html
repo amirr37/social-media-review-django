@@ -1,0 +1,16 @@
+<header>
+    <h1>Stack Overflow</h1>
+    <br>
+    <ul>
+
+        {% if request.user.is_authenticated %}
+            <li><a href="{% url 'Account:logout' %}">logout</a></li>
+            <li><a href="{% url 'Home:index-page' %}">Home page</a></li>
+
+        {% else %}
+            <li><a href="{% url 'Account:register' %}">register</a></li>
+            <li><a href="{% url 'Account:login' %}">login</a></li>
+
+        {% endif %}
+    </ul>
+</header>
