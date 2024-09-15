@@ -28,6 +28,7 @@
     <br>
     {% if post.author.id == request.user.id %}
         <p3><a href="{% url 'Post:post-delete' post.id %}">Delete post</a></p3>
+        <p3><a href="{% url 'Post:post-update' post.id %}">Update post</a></p3>
 
     {% endif %}
 

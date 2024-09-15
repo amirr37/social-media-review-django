@@ -2,12 +2,19 @@ from django.contrib.auth.models import User
 from django.db import models
 from django.urls import reverse
 from django.utils.text import slugify
-from wheel.vendored.packaging.tags import Tag
 
 
 class Tag(models.Model):
     name = models.CharField(max_length=255)
     slug = models.SlugField(unique=True)
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return self.name
+
 
 
 class Post(models.Model):
@@ -19,6 +26,8 @@ class Post(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     is_active = models.BooleanField(default=True)
+
+    # todo : add field image for model
 
     def __str__(self):
         return self.title

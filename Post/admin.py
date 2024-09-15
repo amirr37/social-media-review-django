@@ -11,6 +11,8 @@ class PostAdmin(admin.ModelAdmin):
     # list_editable = ['title', 'slug', ]
     readonly_fields = ['slug']
 
+
 @admin.register(Tag)
 class TagAdmin(admin.ModelAdmin):
     list_display = ['name', 'slug']
+    readonly_fields = ['slug']
