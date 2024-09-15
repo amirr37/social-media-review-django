@@ -17,9 +17,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+from Post.apps import PostConfig
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('Home.urls', namespace='Home'), ),
     path('', include('Account.urls', namespace='Account'), ),
 
+    path('', include('Post.urls', namespace='Post'), ),
 ]

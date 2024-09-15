@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {{ post.title }}
+{% endblock %}
+
+{% block content %}
+
+    <p1>{{ post.title }}</p1>
+    <br>
+    {{ post.content }}
+
+    <br>
+
+
+
+
+    <bold>
+        <hr>
+
+        written by
+        <a href="{% url 'Account:profile' post.author.id %} ">
+            {{ post.author }}
+        </a>
+    </bold>
+
+    <hr>
+    <br>
+    {% if post.author.id == request.user.id %}
+        <p3><a href="{% url 'Post:post-delete' post.id %}">Delete post</a></p3>
+
+    {% endif %}
+
+{% endblock %}

@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.views import View
+from Post.models import Post
 
 from Account.forms import UserRegistrationForm, UserLoginForm
 
@@ -67,3 +68,9 @@ class LogoutView(LoginRequiredMixin, View):
             messages.success(request, 'You have been logged out')
             return redirect('Account:register')
 
+
+class ProfileView(LoginRequiredMixin, View):
+    def get(self, request, id):
+        user = User.objects.get(pk=id)
+        posts = Post.objects.filter(author=user, is_active=True)
+        return render(request, 'Account/profile.html', {'user': user, 'posts':posts})
