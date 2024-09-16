@@ -6,6 +6,8 @@
         {% if request.user.is_authenticated %}
             <li><a href="{% url 'Account:logout' %}">logout</a></li>
             <li><a href="{% url 'Home:index-page' %}">Home page</a></li>
+            <li><a href="{% url 'Account:profile' request.user.id %}">Profile</a></li>
+            
 
         {% else %}
             <li><a href="{% url 'Account:register' %}">register</a></li>

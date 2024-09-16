@@ -2,14 +2,16 @@ from django.contrib.auth import logout, login, authenticate
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.contrib import messages
-from django.shortcuts import render, redirect
+from django.contrib.auth.views import PasswordResetView, PasswordResetDoneView
+from django.shortcuts import render, redirect, get_object_or_404, get_list_or_404
+from django.urls import reverse, reverse_lazy
 from django.views import View
 from Post.models import Post
 
-from Account.forms import UserRegistrationForm, UserLoginForm
+from Account.forms import UserRegistrationForm, UserLoginForm, ResetPasswordForm
 
 
-class RegisterView(View):
+class UserRegisterView(View):
     form_class = UserRegistrationForm
     template_name = 'Account/register.html'
 
@@ -32,7 +34,7 @@ class RegisterView(View):
         return render(request, self.template_name, {'form': form, })
 
 
-class LoginView(View):
+class UserLoginView(View):
     form_class = UserLoginForm
     template_name = 'Account/login.html'
 
@@ -60,7 +62,7 @@ class LoginView(View):
         return render(request, self.template_name, {'form': form})
 
 
-class LogoutView(LoginRequiredMixin, View):
+class UserLogoutView(LoginRequiredMixin, View):
 
     def get(self, request):
         if request.user.is_authenticated:
@@ -69,8 +71,21 @@ class LogoutView(LoginRequiredMixin, View):
             return redirect('Account:register')
 
 
-class ProfileView(LoginRequiredMixin, View):
+class UserProfileView(LoginRequiredMixin, View):
     def get(self, request, id):
-        user = User.objects.get(pk=id)
+        # user = User.objects.get(pk=id)
+        user = get_object_or_404(User, pk=id)
+
         posts = Post.objects.filter(author=user, is_active=True)
-        return render(request, 'Account/profile.html', {'user': user, 'posts':posts})
+        return render(request, 'Account/profile.html', {'user': user, 'posts': posts})
+
+
+class UserPasswordResetView(PasswordResetView):
+    template_name = 'Account/reset_password.html'
+    success_url = reverse_lazy('Account:reset-password-done')
+    email_template_name = 'Account/reset_password_email.html'
+
+
+
+class UserPasswordResetDoneView(PasswordResetDoneView):
+    template_name = 'Account/reset_password_done.html'

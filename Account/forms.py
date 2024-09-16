@@ -35,3 +35,7 @@ class UserRegistrationForm(forms.Form):
 class UserLoginForm(forms.Form):
     username = forms.CharField()
     password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'password'}))
+
+
+class ResetPasswordForm(forms.Form):
+    email = forms.EmailField()

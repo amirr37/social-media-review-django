@@ -6,8 +6,10 @@
 
 {% block content %}
     <h1>profile of {{ user.username }}</h1>
+    {% if request.user.id == user.id %}
+        <h4><a href="{% url 'Post:post-create' %}">create new post</a></h4>
 
-
+    {% endif %}
     <h2>posts : </h2>
     {% for post in posts %}
         <br>
