@@ -2,7 +2,8 @@ from django.contrib.auth import logout, login, authenticate
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.contrib import messages
-from django.contrib.auth.views import PasswordResetView, PasswordResetDoneView, PasswordResetConfirmView
+from django.contrib.auth.views import PasswordResetView, PasswordResetDoneView, PasswordResetConfirmView, \
+    PasswordResetCompleteView
 from django.shortcuts import render, redirect, get_object_or_404, get_list_or_404
 from django.urls import reverse, reverse_lazy
 from django.views import View
@@ -91,5 +92,9 @@ class UserPasswordResetDoneView(PasswordResetDoneView):
 
 
 class UserPasswordResetConfirmView(PasswordResetConfirmView):
-    template_name = ''
+    template_name = 'Account/password_reset_confirm.html'
     success_url = reverse_lazy("Account:password-reset-complete")  # todo : built it
+
+
+class UserPasswordResetCompleteView(PasswordResetCompleteView):
+   template_name = 'Account/password_reset_complete.html'
