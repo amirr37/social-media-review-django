@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 from pathlib import Path
 
+from django.conf.global_settings import DEFAULT_FROM_EMAIL
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -132,8 +134,9 @@ AUTHENTICATION_BACKENDS = [
 
 # email setting
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'amirrj037@gmail.com'
-EMAIL_HOST_PASSWORD = 'olcumuxoruvkoxsz'
+EMAIL_HOST = 'smtp.gmail.com'  # provider
+EMAIL_PORT = 587  # based on prodiver
+EMAIL_USE_TLS = True  # for security
+EMAIL_HOST_USER = 'amirrj037@gmail.com'  # what email we use for send email
+EMAIL_HOST_PASSWORD = 'olcumuxoruvkoxsz'  # the password that connects to provider
+DEFAULT_FROM_EMAIL = 'Forza shop'
