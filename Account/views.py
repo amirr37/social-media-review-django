@@ -77,7 +77,7 @@ class UserProfileView(LoginRequiredMixin, View):
         # user = User.objects.get(pk=id)
         user = get_object_or_404(User, pk=id)
 
-        posts = Post.objects.filter(author=user, is_active=True)
+        posts= user.posts.all().filter(is_active=True)
         return render(request, 'Account/profile.html', {'user': user, 'posts': posts})
 
 
