@@ -120,9 +120,10 @@ class UserUnfollowView(LoginRequiredMixin, View):
     def get(self, request, id):
         follower = request.user
         following = User.objects.get(pk=id)
-        if not Relation.objects.filter(follower=follower, following=following).exists():
+        relation = Relation.objects.filter(follower=follower, following=following)
+        if not relation.exists():
             messages.error(request, 'You are not following this user')
         else:
-            relation = Relation.objects.get(follower=follower, following=following)
             relation.delete()
             messages.success(request, 'user is not following anymore')
+        return redirect('Account:profile', id=id)
