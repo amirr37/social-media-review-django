@@ -18,7 +18,7 @@
             {{ post.content | truncatewords:8 }}
         </p>
 
-        <bold>written by <a href="{% url 'Post:post-detail'  post.id post.slug %}">{{ post.author.username }} </a>
+        <bold>written by <a href="{% url 'Account:profile'  post.author.id %}">{{ post.author.username }} </a>
         </bold>
     <hr>
 
