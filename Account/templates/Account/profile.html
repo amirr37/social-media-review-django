@@ -10,6 +10,11 @@
         <h4><a href="{% url 'Post:post-create' %}">create new post</a></h4>
 
     {% endif %}
+    {% if request.user.id != user.id and not is_following %}
+        <a href="{% url 'Account:user-follow' user.id %}">Follow</a>
+    {% elif request.user.id != user.id and is_following %}
+        <a href="{% url 'Account:user-unfollow' user.id %}">Unfollow</a>
+    {% endif %}
     <h2>posts : </h2>
     {% for post in posts %}
         <br>
